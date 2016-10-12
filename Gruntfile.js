@@ -51,8 +51,20 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git push live master'
       }
     },
+
+    git_deploy: {
+      your_target: {
+        options: {
+          url: 'ssh://root@192.241.225.73/root/shortly/shortly.git',
+          branch: 'master'
+        },
+        src: './'
+      },
+    },
+    
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -63,6 +75,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-git-deploy');
 
   grunt.registerTask('server-dev', function (target) {
     grunt.task.run([ 'nodemon', 'watch' ]);
@@ -71,6 +84,9 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
+  grunt.registerTask('push', [
+    'git_deploy'
+  ]);
 
   grunt.registerTask('test', [
     'mochaTest'
@@ -88,7 +104,8 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', [
-    // add your deploy tasks here
+    grunt.task.run(['shell']),
+    grunt.task.run(['server-dev'])
   ]);
 
 
