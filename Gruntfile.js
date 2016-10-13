@@ -83,7 +83,7 @@ module.exports = function(grunt) {
   // Main grunt tasks
   ////////////////////////////////////////////////////
   grunt.registerTask('push', [
-    'git_deploy'
+    'shell'
   ]);
 
   grunt.registerTask('test', [
