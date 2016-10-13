@@ -51,7 +51,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
-        command: 'git push ssh://root:password@192.241.225.73/root/shortly/shortly.git master'
+        command: 'git push ssh://root@192.241.225.73/root/shortly/shortly.git master'
       }
     },
 
@@ -64,6 +64,22 @@ module.exports = function(grunt) {
         src: './'
       },
     },
+
+  gitcommit: {
+    your_target: {
+      options: {
+        cwd: process.env.CWD,
+        verbose: true
+      },
+      files: [
+        {
+          src: '*.*',
+          expand: true,
+          cwd: "/path/to/repo"
+        }
+      ]
+    }
+  },
     
   });
   console.log('INIT CONFIG COMPLETE');
@@ -76,6 +92,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-git-deploy');
+  grunt.loadNpmTasks('grunt-git');
   console.log('LOADED TASKS');
 
 
