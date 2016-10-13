@@ -51,7 +51,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
-        command: 'git push ssh://root@192.241.225.73/root/shortly/shortly.git master'
+        command: 'git push live master'
       }
     },
 
@@ -100,7 +100,7 @@ module.exports = function(grunt) {
   // Main grunt tasks
   ////////////////////////////////////////////////////
   grunt.registerTask('push', [
-    's'
+    'shell'
   ]);
 
   grunt.registerTask('test', [
