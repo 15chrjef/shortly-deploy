@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-
+  console.log('INIT CONFIG');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
     },
     
   });
-
+  console.log('INIT CONFIG COMPLETE');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -76,10 +76,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-git-deploy');
+  console.log('LOADED TASKS');
 
-  grunt.registerTask('server-dev', function (target) {
-    grunt.task.run([ 'nodemon', 'watch' ]);
-  });
 
   ////////////////////////////////////////////////////
   // Main grunt tasks
@@ -95,17 +93,29 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
   ]);
 
+  grunt.registerTask('server-dev', function (target) {
+    console.log('RUNNING SERVER-DEV');
+    grunt.task.run([ 'nodemon', 'watch' ]);
+  });
+
+
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
     } else {
+      console.log('IN UPLOAD. RUNNING SERVER DEV');
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
-  grunt.registerTask('deploy', [
-    grunt.task.run(['shell']),
-    grunt.task.run(['server-dev'])
+  grunt.registerTask('deploy', function() {
+    console.log('IN DEPLOY. RUNNING SERVER-DEV');
+    grunt.task.run(['server-dev']);
+  });
+
+
+  grunt.registerTask('default', [
+    'push'
   ]);
 
 
